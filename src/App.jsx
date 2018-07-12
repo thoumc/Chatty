@@ -12,7 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       messages: [],
-      currentUser: "Anonymous"
+      currentUser: "Anonymous",
+      onlineUser: 0
     }
     this.addMessage = this.addMessage.bind(this);
     this.addUsername = this.addUsername.bind(this);
@@ -25,6 +26,7 @@ class App extends Component {
 
     this.socket.addEventListener ('open', (event) => {
       console.log("App Client connected")
+      this.setState({userNumber: (this.state.userNumber + 1)})
     })
 
     this.socket.addEventListener ('message', this.receivedMessage)
@@ -33,33 +35,19 @@ class App extends Component {
 
   receivedMessage = (event) => {
     const msg = JSON.parse(event.data);
-    console.log(msg)
+    console.log("this message: ", msg)
 
-    this.setState(prevState => ({
-      ...prevState,
-      messages: prevState.messages.concat(msg)
-    }))
+    switch (msg.type){
+      case "userNumber":
+        this.setState({onlineUser : msg.userCount})
+        break;
 
-    // switch (msg.type){
-    //   case "postMessage":
-
-    //     this.setState(prevState => ({
-    //       ...prevState,
-    //       messages: prevState.messages.concat(msg)
-    //     }))
-    //     break;
-
-    //   case "postNotification":
-    //      this.setState(prevState => ({
-    //       ...prevState,
-    //       messages: prevState.messages.concat(msg)
-    //     }))
-
-    //     break;
-
-    //   default:
-    //     throw new Error("Unknown event type" + data.type)
-    //   }
+      default:
+      this.setState(prevState => ({
+        ...prevState,
+        messages: prevState.messages.concat(msg)
+      }))
+    }
 
   }
 
@@ -96,7 +84,7 @@ class App extends Component {
       <div>
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
-        <a className="userNumber">user online</a>
+        <a className="userNumber">{this.state.onlineUser} user online</a>
       </nav>
 
       <MessageList  messages={this.state.messages} />

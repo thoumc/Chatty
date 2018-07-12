@@ -18,7 +18,6 @@ class Message extends Component {
         <span name="messageContent" className="message-content">{this.props.content}</span>
       </div>
       ):(
-
         <span class="notification-content">{this.props.content}</span>
       )}
       </div>
