@@ -4,12 +4,8 @@ import React, {Component} from 'react';
 class Message extends Component {
 
   render() {
-    const isMessage = () =>{
-      console.log(this.props.type)
-      this.props.type === 'postMessage'
-    }
-
-    console.log(isMessage())
+    const isMessage = this.props.type === 'postMessage'
+    console.log("isMessage true/false", isMessage)
 
     return (
       <div>
@@ -18,7 +14,7 @@ class Message extends Component {
         <span name="messageContent" className="message-content">{this.props.content}</span>
       </div>
       ):(
-        <span class="notification-content">{this.props.content}</span>
+        <span className="notification-content">{this.props.content}</span>
       )}
       </div>
       )
