@@ -34,7 +34,6 @@ class ChatBar extends Component {
 
     const userSubmit = event => {
       if (event.key === 'Enter'){
-
         this.props.addUsername(this.state.currentUser)
       }
     }
