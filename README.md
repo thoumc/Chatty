@@ -27,12 +27,16 @@ open http://localhost:3000
 * Randomcolor
 * UUID
 * Webpack
+* webpack-dev-server
 * Node-sass
 * Style-loader
 * Webpack
 * Babel-loader
 * Babel-core
-* SockJS
+* Babel-preset
+* SockJS-client
 * Eslint
+* WS
+
 
 
