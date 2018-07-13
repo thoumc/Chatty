@@ -3,6 +3,10 @@ Chatty App
 
 A single-page chatting app built with ReactJS and WebSocket.
 
+### Screenshot
+
+!["Screenshot from chatty app"](https://github.com/thoumc/Chatty/blob/master/build/Chatty-app-screenshot.png)
+
 ### Usage
 
 Fork this repository, then clone your fork of this repository. Open 2 windows on your terminals, for one of the window, cd into chatty_server directory. Complete the next step on both terminals:
