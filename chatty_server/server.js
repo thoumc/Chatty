@@ -2,6 +2,7 @@ const express = require('express');
 const WebSocket = require ('ws');
 const SocketServer = WebSocket.Server;
 const uuid = require('uuid/v1');
+const randomColor = require('randomcolor');
 
 // Set the port to 3001
 const PORT = 3001;
@@ -23,20 +24,19 @@ const wss = new SocketServer({ server });
 const connectionOpen = num => {
   let clientNumber = {
     type: "userNumber",
-    userCount: num
+    userCount: num,
   }
   wss.broadcast(JSON.stringify(clientNumber));
 };
 
-// const connectionClose = num => {
-//   let clientNumber = {
-//     type: "userNumber",
-//     userCount: num
-//   }
-//     wss.broadcast(JSON.stringify(clientNumber), ws);
-
-// };
-
+const colorAssign = () => {
+  let clientColor = {
+    id: uuid(),
+    type: "colorAssign",
+    userColor: randomColor(),
+  }
+  wss.broadcast(JSON.stringify(clientColor));
+};
 
 
 wss.broadcast = (data, ws) => {
@@ -51,7 +51,8 @@ wss.broadcast = (data, ws) => {
 wss.on('connection', (ws) => {
   const number = wss.clients.size
   console.log('Client connected', number);
-
+//this is where to declare the color!!!! **************
+  colorAssign();
   connectionOpen(number);
 
   ws.on('message', (data) => {
