@@ -27,7 +27,7 @@ const connectionOpen = num => {
 
 
 
-//(under development) assign color to every client online
+// assign color to every client online
 const colorAssign = () => {
   let clientColor = {
     id: uuid(),
