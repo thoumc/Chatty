@@ -21,8 +21,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount <App />");
 
+    // connection to webSocket
     this.socket = new WebSocket ("ws://localhost:3001/");
 
     this.socket.addEventListener ('open', (event) => {
@@ -33,32 +33,32 @@ class App extends Component {
 
   }
 
+  // different action depending on type of message from server
   receivedMessage = (event) => {
+
     const msg = JSON.parse(event.data);
-    console.log("this message: ", msg)
 
     switch (msg.type){
       case "userNumber":
-        this.setState({onlineUser : msg.userCount})
+        this.setState({onlineUser : msg.userCount});
         break;
 
       case "colorAssign":
         this.setState({currentUser: {
           color: msg.userColor,
           name: "Anonymous"
-        }})
+        }});
         break;
 
       default:
       this.setState(prevState => ({
         ...prevState,
         messages: prevState.messages.concat(msg)
-      }))
+      }));
     }
-
   }
 
-
+  // render user's message input
   addMessage(username, content){
     const newMessage = {
       id: uuid(),
@@ -73,6 +73,7 @@ class App extends Component {
     this.socket.send(JSON.stringify(newMessage));
   }
 
+  // update user's username
   addUsername(newName){
     const newUsername = {
       id: uuid(),
@@ -80,24 +81,24 @@ class App extends Component {
       content: `${this.state.currentUser.name} has changed their name to ${newName}`
     }
 
-    this.socket.send(JSON.stringify(newUsername))
+    this.socket.send(JSON.stringify(newUsername));
 
-    this.setState({currentUser: {name: newName} })
+    this.setState({currentUser: {name: newName} });
   }
 
   render() {
 
     return (
       <div>
-      <nav className="navbar">
-        <a href="/" className="navbar-brand">Chatty</a>
-        <a className="userNumber">{this.state.onlineUser} user online</a>
-      </nav>
+        <nav className="navbar">
+          <a href="/" className="navbar-brand">Chatty</a>
+          <a className="userNumber">{this.state.onlineUser} user online</a>
+        </nav>
 
-      <MessageList  messages={this.state.messages} />
-      <ChatBar addMessage= {this.addMessage} addUsername = {this.addUsername} currentUser={this.state.currentUser.name}/>
+        <MessageList  messages={this.state.messages} />
+        <ChatBar addMessage= {this.addMessage} addUsername = {this.addUsername} currentUser={this.state.currentUser.name}/>
       </div>
-      );
+    );
   }
 }
 export default App;

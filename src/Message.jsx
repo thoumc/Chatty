@@ -4,10 +4,9 @@ import React, {Component} from 'react';
 class Message extends Component {
 
   render() {
-    const isMessage = this.props.type === 'postMessage'
-    console.log("isMessage true/false", isMessage)
 
-
+    // determine message type to render
+    const isMessage = this.props.type === 'postMessage';
 
     return (
       <div>
