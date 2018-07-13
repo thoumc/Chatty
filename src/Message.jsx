@@ -7,11 +7,12 @@ class Message extends Component {
 
     // determine message type to render
     const isMessage = this.props.type === 'postMessage';
+    const inLineStyle = {color: this.props.userColor}
 
     return (
       <div>
       {isMessage? (<div className="message">
-        <span  name="messageUsername" className="message-username">{this.props.username}</span>
+        <span  style={inLineStyle} name="messageUsername" className="message-username">{this.props.username}</span>
         <span name="messageContent" className="message-content">{this.props.content}</span>
       </div>
       ):(

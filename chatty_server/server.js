@@ -25,12 +25,14 @@ const connectionOpen = num => {
   wss.broadcast(JSON.stringify(clientNumber));
 };
 
+
+
 //(under development) assign color to every client online
 const colorAssign = () => {
   let clientColor = {
     id: uuid(),
     type: "colorAssign",
-    userColor: randomColor(),
+    userColor: randomColor()
   }
   wss.broadcast(JSON.stringify(clientColor));
 };

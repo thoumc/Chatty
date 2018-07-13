@@ -14,7 +14,7 @@ class App extends Component {
       currentUser: {
         name: "Anonymous",
         color: null },
-      onlineUser: 0
+      onlineUser: 0,
     }
     this.addMessage = this.addMessage.bind(this);
     this.addUsername = this.addUsername.bind(this);
@@ -37,6 +37,8 @@ class App extends Component {
   receivedMessage = (event) => {
 
     const msg = JSON.parse(event.data);
+    console.log(msg);
+    console.log("the state", this.state);
 
     switch (msg.type){
       case "userNumber":
@@ -44,10 +46,12 @@ class App extends Component {
         break;
 
       case "colorAssign":
+        //this.setState({userColor: msg.userColor});
         this.setState({currentUser: {
-          color: msg.userColor,
+          color: randomColor(),
           name: "Anonymous"
         }});
+
         break;
 
       default:
@@ -64,7 +68,8 @@ class App extends Component {
       id: uuid(),
       type: "postMessage",
       username: username,
-      content: content
+      content: content,
+      color: this.state.currentUser.color
     }
 
     if (username === "" ){
@@ -83,7 +88,7 @@ class App extends Component {
 
     this.socket.send(JSON.stringify(newUsername));
 
-    this.setState({currentUser: {name: newName} });
+    this.setState({currentUser: {name: newName, color: this.state.currentUser.color} });
   }
 
   render() {
@@ -95,7 +100,7 @@ class App extends Component {
           <a className="userNumber">{this.state.onlineUser} user online</a>
         </nav>
 
-        <MessageList  messages={this.state.messages} />
+        <MessageList  userColor ={this.state.currentUser.color} messages={this.state.messages} />
         <ChatBar addMessage= {this.addMessage} addUsername = {this.addUsername} currentUser={this.state.currentUser.name}/>
       </div>
     );

@@ -9,7 +9,7 @@ A single-page chatting app built with ReactJS and WebSocket.
 
 ### Usage
 
-Fork this repository, then clone your fork of this repository. Open 2 windows on your terminals, for one of the window, cd into chatty_server directory. Complete the next step on both terminals:
+Fork this repository, then clone your fork of this repository. Open 2 windows on your terminal, for one of the window, cd into chatty_server directory. Complete the next step on both terminals:
 
 Install dependencies using the npm install command.
 Start the web server using the npm start command. The app will be served at http://localhost:3000/.
